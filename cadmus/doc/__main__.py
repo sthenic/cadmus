@@ -17,6 +17,4 @@ parser.add_argument('--sub-dir',
 
 args = parser.parse_args()
 
-print(args)
-
 generate(args.source_dir, args.output_dir, args.sub_dir)

@@ -62,7 +62,7 @@ class File:
                     format_string += '----\n\n'
                     format_string += env.format_all()
 
-                print('Generating RST file \'' + package_name + '_all.rst\'.')
+                print('Generating file \'' + package_name + '_all.rst\'.')
                 with open(
                     os.path.join(output_dir, package_name + '_all.rst'), 'w'
                 ) as f:
@@ -75,7 +75,7 @@ class File:
                     format_string  = '----\n\n'
                     format_string += macro.format_all()
 
-                    print('Generating RST file \'' + macro._name + '.rst\'.')
+                    print('Generating file \'' + macro._name + '.rst\'.')
                     with open(
                         os.path.join(output_dir, macro._name + '.rst'), 'w'
                     ) as f:
@@ -85,7 +85,7 @@ class File:
                     format_string  = '----\n\n'
                     format_string += env.format_all()
 
-                    print('Generating RST file \'' + env._name + '.rst\'.')
+                    print('Generating file \'' + env._name + '.rst\'.')
                     with open(
                         os.path.join(output_dir, env._name + '.rst'), 'w'
                     ) as f:
@@ -98,7 +98,7 @@ class File:
                         body.append(e.format_table_row())
                     table_dict = {'header': header, 'body': body}
 
-                    print('Generating RST file \'' + package_name + '_cfg.rst\'.')
+                    print('Generating file \'' + package_name + '_cfg.rst\'.')
                     with open(
                         os.path.join(output_dir, package_name + '_cfg.rst'), 'w'
                     ) as f:
