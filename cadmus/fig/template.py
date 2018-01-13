@@ -3,15 +3,15 @@ import re
 
 class Template:
     # Locals
-    _template = None
-    _file     = None # Every element is a line in the file
-    _markers  = None # A dict of line indices, i.e. where to place certain
+    template_ = None
+    file_     = None # Every element is a line in the file
+    markers_  = None # A dict of line indices, i.e. where to place certain
                      # types of content. Updated when content is added.
 
     # Constructor
     def __init__(self, template):
-        self._file    = []
-        self._markers = {}
+        self.file_    = []
+        self.markers_ = {}
         self.parse_template(template)
         return
 
@@ -20,7 +20,7 @@ class Template:
         if not os.path.exists(template):
             raise ValueError('Invalid template specified: ' + template + '.')
 
-        self._template  = template
+        self.template_  = template
 
         files_to_insert = []
         file_id         = 0
@@ -62,22 +62,22 @@ class Template:
                                 )
                             # Append path to list of files to insert
                             files_to_insert.append(file_path)
-                            self._markers['file' + str(file_id)] = \
-                                len(self._file)
+                            self.markers_['file' + str(file_id)] = \
+                                len(self.file_)
                             file_id += 1
                         else:
                             # Remember where to insert the content type
                             # indicated by the token.
-                            self._markers[token] = len(self._file)
+                            self.markers_[token] = len(self.file_)
                             # Append a dummy line to the file to resolve
                             # content type tokens next to each other.
-                            self._file.append('')
+                            self.file_.append('')
                     else:
                         # TODO: Maybe silently continue?
                         raise ValueError('Special comment without @-token.')
                 else:
                     # Regular line, add to the file
-                    self._file.append(line)
+                    self.file_.append(line)
 
         # Insert files
         for (file_id, file_path) in enumerate(files_to_insert):
@@ -89,16 +89,16 @@ class Template:
         return
 
     def insert_content(self, content, content_type):
-        if content_type in self._markers:
+        if content_type in self.markers_:
             # Find insertion point in file
-            ins_idx = self._markers[content_type]
+            ins_idx = self.markers_[content_type]
             # Insert contents
-            self._file.insert(ins_idx, content)
+            self.file_.insert(ins_idx, content)
             # Increment markers with index higher or equal to the current
             # content marker
-            for (content_type, idx) in self._markers.items():
+            for (content_type, idx) in self.markers_.items():
                 if (idx >= ins_idx):
-                    self._markers[content_type] += 1
+                    self.markers_[content_type] += 1
         else:
             raise ValueError(
                 'No marker for content type ' + content_type + ' found.')
@@ -112,8 +112,8 @@ class Template:
         with open(output_path, 'w') as f:
             print(
                 'Writing file \'' + output_path + '\' using template \'' + \
-                 self._template + '\'.')
+                 self.template_ + '\'.')
 
-            f.write(''.join(self._file))
+            f.write(''.join(self.file_))
 
         return

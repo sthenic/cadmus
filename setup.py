@@ -7,4 +7,7 @@ setup(name='Cadmus',
       description='A LaTeX front-end to Sphinx',
       author='Marcus Eriksson',
       author_email='marcus.jr.eriksson@gmail.com',
-      packages=['cadmus', 'cadmus.doc', 'cadmus.fig'])
+      packages=['cadmus',
+                'cadmus.doc',
+                'cadmus.fig',
+                'cadmus.fig.templates'])
