@@ -62,7 +62,7 @@ def generate_source_files(source_dir, output_dir, default_template,
     # populated with the contents of the file. An enclosing directory is
     # created and the filled template is placed inside as a .tex file with the
     # same name as the source file.
-    #
+
     # The source directory's hierarchical structure is replicated in the output
     # directory, i.e. the source file located at
     #   <source_dir>/<dir0>/<file0>.tex
