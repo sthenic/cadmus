@@ -2,13 +2,7 @@ import os
 import json
 from subprocess import Popen, DEVNULL
 
-def generate_pdf(file,
-                 output_dir=None,
-                 page=1,
-                 passes=1,
-                 crop=True,
-                 crop_margins='10',
-                 quiet=True):
+def generate_pdf(file, output_dir, page, passes, crop, crop_margins, quiet):
     # Check if file exists
     if not os.path.exists(file):
         raise ValueError('File \'' + file + '\' does not exist.')
@@ -89,11 +83,7 @@ def generate_pdf(file,
 
     return p_gs.returncode
 
-def rasterize(file,
-              output_dir = None,
-              output_format = 'jpg',
-              dev_mode = False,
-              quiet = True):
+def rasterize(file, output_dir, output_format, dev_mode, quiet):
     # Check if file exists
     if not os.path.exists(file):
         raise ValueError('File \'' + file + '\' does not exist.')
@@ -167,11 +157,7 @@ def rasterize(file,
 
     return p_convert.returncode
 
-def generate_figures(source_dir,
-                     output_dir,
-                     output_format = 'jpg',
-                     dev_mode = False,
-                     quiet = True):
+def generate_figures(source_dir, output_dir, output_format, dev_mode, quiet):
     print('Begin generating figures.')
     if not os.path.exists(output_dir):
         print('Creating directory ' + output_dir + '.')

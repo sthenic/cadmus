@@ -1,4 +1,6 @@
+# Unpack all core utils into the main namespace
 from .core import *
-from .doc.gen import generate_documentation
-from .fig.src_utils import generate_source_files
-from .fig.build_utils import generate_figures
+# Import submodule doc
+from . import doc
+# Import submodule fig
+from . import fig

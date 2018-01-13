@@ -1,7 +1,7 @@
 from .file import File
 import os
 
-def generate_documentation(source_dir, output_dir, sub_dir):
+def generate(source_dir, output_dir, sub_dir):
     print('*** Cadmus documentation generator ***')
     print('Begin generating reStructuredText documents.')
     for (root_dir, dir_names, file_names) in os.walk(source_dir):
