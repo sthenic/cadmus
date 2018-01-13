@@ -1,13 +1,14 @@
 import os
 import json
+
 from .template import Template
+from .common import CFG_FILE_NAME
 
 class CadmusPathError(Exception):
     def __init__(self, message=''):
         super(CadmusPathError, self).__init__(message)
         return
 
-CFG_FILE_NAME = 'cadmus.cfg'
 TEMPLATES = {
     'article': 'templates/article.tex'
 }

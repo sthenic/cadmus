@@ -2,6 +2,8 @@ import os
 import json
 from subprocess import Popen, DEVNULL
 
+from .common import CFG_FILE_NAME
+
 def generate_pdf(file, output_dir, page, passes, crop, crop_margins, verbose):
     # Check if file exists
     if not os.path.exists(file):
@@ -164,9 +166,9 @@ def generate_figures(source_dir, output_dir, output_format, dev, verbose):
         os.makedirs(output_dir)
 
     for (root_dir, dir_names, file_names) in os.walk(source_dir):
-        if 'figgen.cfg' in file_names:
+        if CFG_FILE_NAME in file_names:
             try:
-                with open(os.path.join(root_dir, 'figgen.cfg')) as cfg_file:
+                with open(os.path.join(root_dir, CFG_FILE_NAME)) as cfg_file:
                     try:
                         cfg = json.load(cfg_file)
                     except ValueError: # Changed from value error in Python 3.5
