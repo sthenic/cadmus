@@ -1,10 +1,10 @@
 import rst_conf
-from commandsequence import CommandSequence
+from control_sequence import ControlSequence
 from formatter import format_table
 
-class Environment(CommandSequence):
+class Environment(ControlSequence):
     def __init__(self, name, descr=''):
-        CommandSequence.__init__(self, name, descr)
+        ControlSequence.__init__(self, name, descr)
         return
 
     def format_syntax(self):

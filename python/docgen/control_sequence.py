@@ -2,7 +2,7 @@ import rst_conf
 from dobject import DObject
 from formatter import format_table
 
-class CommandSequence(DObject):
+class ControlSequence(DObject):
     def __init__(self, name, descr=''):
         DObject.__init__(self, name, descr)
         self._opts    = []
@@ -57,8 +57,3 @@ class CommandSequence(DObject):
         formatted_output += format_table(table_dict)
 
         return formatted_output + '\n'
-
-
-
-
-
