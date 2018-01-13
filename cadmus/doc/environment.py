@@ -1,6 +1,6 @@
-import rst_conf
-from control_sequence import ControlSequence
-from formatter import format_table
+from . import rst_conf
+from .control_sequence import ControlSequence
+from .formatter import format_table
 
 class Environment(ControlSequence):
     def __init__(self, name, descr=''):

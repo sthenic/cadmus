@@ -2,9 +2,9 @@
 #   This module implements functions able to parse files written in LaTeX,
 #   extract docstrings and match them to the supported objects, e.g. macros.
 from enum import Enum
-from macro import Macro
-from environment import Environment
-from configurable_element import ConfigurableElement
+from .macro import Macro
+from .environment import Environment
+from .configurable_element import ConfigurableElement
 import os
 import re
 

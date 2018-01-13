@@ -1,6 +1,6 @@
-import rst_conf
-from dobject import DObject
-from formatter import format_table
+from . import rst_conf
+from .dobject import DObject
+from .formatter import format_table
 
 class ControlSequence(DObject):
     def __init__(self, name, descr=''):

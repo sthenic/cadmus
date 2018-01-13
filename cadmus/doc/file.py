@@ -1,8 +1,8 @@
 import os
 import re
-import rst_conf
-from ltxparser import parse_file
-from formatter import format_table
+from . import rst_conf
+from .ltxparser import parse_file
+from .formatter import format_table
 
 class File:
     # Locals
