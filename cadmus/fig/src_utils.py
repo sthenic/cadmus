@@ -7,14 +7,15 @@ class CadmusPathError(Exception):
         super(CadmusPathError, self).__init__(message)
         return
 
-templates = {
+CFG_FILE_NAME = 'cadmus.cfg'
+TEMPLATES = {
     'article': 'templates/article.tex'
 }
 
 def get_template_path(root_dir, template):
     template_path_ret = ''
     # Check if the template is given by name
-    if template not in templates:
+    if template not in TEMPLATES:
         # Assuming it's a path, check if the file exists.
         if os.path.isabs(template):
             # Absolute path, copy straight off.
@@ -30,7 +31,7 @@ def get_template_path(root_dir, template):
             template_path_ret = template_path
     else:
         # Valid template name, look up the path.
-        template_path_ret = templates[template]
+        template_path_ret = TEMPLATES[template]
 
     return template_path_ret
 
@@ -40,7 +41,7 @@ def generate_source_files(source_dir, output_dir, default_template,
 
     # TODO: Test if some abspath stuff is needed after refactoring with argparse
     # Check if the template is given by name
-    if default_template not in templates:
+    if default_template not in TEMPLATES:
         # Assuming it's a path, check if the file exists
         if not os.path.exists(default_template):
             # Neither a valid name nor a valid path, raise an error
@@ -49,7 +50,7 @@ def generate_source_files(source_dir, output_dir, default_template,
                              .format(default_template))
     else:
         # Replace the variable with the correct path
-        default_template = templates[default_template]
+        default_template = TEMPLATES[default_template]
 
     if not os.path.exists(output_dir):
         print('Creating output directory ' + output_dir + '.')
@@ -70,9 +71,9 @@ def generate_source_files(source_dir, output_dir, default_template,
     #   <output_dir>/<dir0>/<file0>/<file0>.tex
     # after the walk is complete.
     for (root_dir, dir_names, file_names) in os.walk(source_dir):
-        if 'figgen.cfg' in file_names:
+        if CFG_FILE_NAME in file_names:
             try:
-                with open(os.path.join(root_dir, 'figgen.cfg')) as cfg_file:
+                with open(os.path.join(root_dir, CFG_FILE_NAME)) as cfg_file:
                     try:
                         cfg = json.load(cfg_file)
                     except ValueError: # Changed from value error in Python 3.5
@@ -94,8 +95,8 @@ def generate_source_files(source_dir, output_dir, default_template,
                   'required field \'targets\', skipping directory.')
             continue
 
-        # Initialize default configuration and parse any settings present in the
-        # 'figgen.cfg' file.
+        # Initialize default configuration and parse any settings present in
+        # the configuration file.
         default = {
             'page': 1,
             'format': 'jpg',
@@ -130,7 +131,7 @@ def generate_source_files(source_dir, output_dir, default_template,
                     print('WARNING: The default template specified in '
                           '\'{}\' is neither a valid template name nor a '
                           'valid path, skipping.'
-                          .format(os.path.join(root_dir, 'figgen.cfg')))
+                          .format(os.path.join(root_dir, CFG_FILE_NAME)))
                     continue
 
         # Replicate hierarchical structure in the output directory
@@ -236,7 +237,7 @@ def generate_source_files(source_dir, output_dir, default_template,
             # Dump the configuration object into the build directory
             try:
                 with open(
-                    os.path.join(file_dir, 'figgen.cfg'), 'w'
+                    os.path.join(file_dir, CFG_FILE_NAME), 'w'
                 ) as cfg_file:
                     # Perform a JSON dump of the configuration object
                     json.dump({'targets': [match]}, cfg_file)
