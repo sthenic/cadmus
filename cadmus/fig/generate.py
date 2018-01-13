@@ -2,7 +2,7 @@ from .src_utils import generate_source_files
 from .build_utils import generate_figures
 
 def generate(source_dir, build_dir, output_dir, default_template, default_font,
-             output_format, dev_mode, quiet, dry_run):
+             output_format, dev, verbose, dry_run):
     print('*** Cadmus figure generator ***')
 
     # Generate source files.
@@ -16,7 +16,7 @@ def generate(source_dir, build_dir, output_dir, default_template, default_font,
         generate_figures(source_dir = build_dir,
                          output_dir = output_dir,
                          output_format = output_format,
-                         dev_mode = dev_mode,
-                         quiet = quiet)
+                         dev = dev,
+                         verbose = verbose)
 
     return

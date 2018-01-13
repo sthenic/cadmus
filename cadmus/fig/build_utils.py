@@ -2,12 +2,12 @@ import os
 import json
 from subprocess import Popen, DEVNULL
 
-def generate_pdf(file, output_dir, page, passes, crop, crop_margins, quiet):
+def generate_pdf(file, output_dir, page, passes, crop, crop_margins, verbose):
     # Check if file exists
     if not os.path.exists(file):
         raise ValueError('File \'' + file + '\' does not exist.')
 
-    ostream = DEVNULL if quiet else None
+    ostream = None if verbose else DEVNULL
 
     # Find out some information about the input file
     (file_name, file_type) = os.path.basename(file).split('.')
@@ -83,7 +83,7 @@ def generate_pdf(file, output_dir, page, passes, crop, crop_margins, quiet):
 
     return p_gs.returncode
 
-def rasterize(file, output_dir, output_format, dev_mode, quiet):
+def rasterize(file, output_dir, output_format, dev, verbose):
     # Check if file exists
     if not os.path.exists(file):
         raise ValueError('File \'' + file + '\' does not exist.')
@@ -96,8 +96,8 @@ def rasterize(file, output_dir, output_format, dev_mode, quiet):
         raise ValueError('Unsupported rasterization format \'{}\'.'
                          .format(output_format))
 
-    ostream = DEVNULL if quiet else None
-    density = '200' if dev_mode else '1500'
+    ostream = None if verbose else DEVNULL
+    density = '200' if dev else '1500'
 
     # Find out some information about the input file
     input_dir = os.path.dirname(file)
@@ -157,7 +157,7 @@ def rasterize(file, output_dir, output_format, dev_mode, quiet):
 
     return p_convert.returncode
 
-def generate_figures(source_dir, output_dir, output_format, dev_mode, quiet):
+def generate_figures(source_dir, output_dir, output_format, dev, verbose):
     print('Begin generating figures.')
     if not os.path.exists(output_dir):
         print('Creating directory ' + output_dir + '.')
@@ -265,7 +265,7 @@ def generate_figures(source_dir, output_dir, output_format, dev_mode, quiet):
                     match['passes'],
                     match['crop'],
                     match['crop_margins'],
-                    quiet
+                    verbose
                 )
             except ValueError as e:
                 print('ERROR: ' + str(e))
@@ -281,8 +281,8 @@ def generate_figures(source_dir, output_dir, output_format, dev_mode, quiet):
                     os.path.join(root_dir, file_name + '.pdf'),
                     local_output_dir,
                     match['format'],
-                    dev_mode,
-                    quiet
+                    dev,
+                    verbose
                 )
             except ValueError as e:
                 print('ERROR: ' + str(e))
