@@ -1,4 +1,4 @@
-from file import File
+from .file import File
 import os
 
 # Local variables (should be accepted as inputs when refactored w/ argparse)
