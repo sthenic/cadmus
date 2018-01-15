@@ -1,3 +1,4 @@
+[![pipeline status](https://gitlab.com/sthenic/cadmus/badges/master/pipeline.svg)](https://gitlab.com/sthenic/cadmus/commits/master)
 [![LICENSE](https://img.shields.io/badge/license-MIT-blue.svg)]()
 
 # README
