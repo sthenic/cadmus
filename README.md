@@ -9,7 +9,7 @@ In addition to the documentation generator, the tool has a framework to manage a
 
 # Documentation
 
-The project's documentation is located here.
+The project's documentation is located [here](https://sthenic.gitlab.io/cadmus).
 
 # Version numbers
 
