@@ -1,6 +1,6 @@
-********************************
-Documentation for Cadmus project
-********************************
+************************************
+Documentation for the Cadmus project
+************************************
 
 Cadmus is a front-end to the `Sphinx`_ documentation generator. The tool is
 written in Python3 and parses custom docstrings from a TeX file and generates
