@@ -2,13 +2,14 @@ image: alpine
 
 pages:
   script:
-  - cd doc
+  - pushd doc
   - apk --no-cache add py2-pip python-dev
   - pip install sphinx
   - pip install sphinx-rtd-theme
   - apk --no-cache add make
   - make html
-  - mv _build/html/ public/
+  - popd
+  - mv doc/_build/html/ public/
   artifacts:
     paths:
     - public
