@@ -31,7 +31,7 @@ class ControlSequence(DObject):
             body.append([
                 '``' + opt['name'] + '``',
                 opt['descr'],
-                opt['default']
+                '``' + opt['default'] + '``'
             ])
         table_dict = {'header': header, 'body': body}
         # Get formatted output
