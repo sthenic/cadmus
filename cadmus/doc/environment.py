@@ -37,7 +37,11 @@ class Environment(ControlSequence):
     def format_header(self):
         # Add header
         if self._name:
-            formatted_output = '.. _' + self._name + '_env:\n\n'
+            formatted_output = (
+                '.. |' + self._name + '_env| replace:: ``' + self._name
+                + '`` environment\n'
+            )
+            formatted_output += '.. _' + self._name + '_env:\n\n'
             formatted_output += (
                 'Environment ' + self._name + '\n'
                 + rst_conf.cs_hdr_symbol*(len(self._name) + 12) + '\n'
