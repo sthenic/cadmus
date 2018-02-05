@@ -54,7 +54,6 @@ def parse_file(file_path):
     name         = ''
     state        = State.IDLE
     dobject_type = ''
-    is_newline   = True
     is_valid     = False
 
     # Validate file
@@ -85,8 +84,7 @@ def parse_file(file_path):
                         if match.group(4):
                             descr = match.group(4)
                         if match.group(8):
-                            descr += ' ' + match.group(8)
-                        is_newline = not descr
+                            descr += ' ' + match.group(8) + '\n'
                         state      = State.CS_DESCR
 
                     elif token == 'opt':
@@ -134,15 +132,9 @@ def parse_file(file_path):
                     # append to the description of the token under
                     # construction. Text is ignored if state is IDLE.
                     if state == State.CS_DESCR:
-                        if not line:
-                            # Empty line intended by the author
-                            descr += '\n\n'
-                            is_newline = True
-                        else:
-                            # Prepend a space unless first line in a section.
-                            descr += ' '*(not is_newline) + line.strip()
-                            if is_newline:
-                                is_newline = False
+                        if line.startswith(' '):
+                            line = line[1:]
+                        descr += line + '\n'
 
                     elif state == State.CS_OPT:
                         opts[-1]['descr'] += ' ' + line.strip()
@@ -281,7 +273,6 @@ def parse_file(file_path):
                 name         = ''
                 state        = State.IDLE
                 dobject_type = ''
-                is_newline   = True
                 is_valid     = False
 
     return dobjects
