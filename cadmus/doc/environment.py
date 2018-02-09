@@ -36,9 +36,13 @@ class Environment(ControlSequence):
 
     def format_header(self):
         if self._name:
+            # Insert custom RST role
+            formatted_output = ('.. role:: environment(raw)\n' +
+                                '    :format: html\n' +
+                                '    :class: environment\n\n')
             # Define formatted cross-reference using the RST replacement
             # directive.
-            formatted_output = (
+            formatted_output += (
                 '.. |' + self._name + '_env| replace:: ``' + self._name
                 + '`` environment\n'
             )
@@ -46,8 +50,8 @@ class Environment(ControlSequence):
             formatted_output += '.. _' + self._name + '_env:\n\n'
             # Define header
             formatted_output += (
-                'Environment ' + self._name + '\n'
-                + rst_conf.cs_hdr_symbol*(len(self._name) + 12) + '\n'
+                'Environment :environment:`' + self._name + '`\n'
+                + rst_conf.cs_hdr_symbol*(len(self._name) + 27) + '\n'
             )
             # Add description
             formatted_output += self._descr + '\n'

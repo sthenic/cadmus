@@ -28,17 +28,21 @@ class Macro(ControlSequence):
 
     def format_header(self):
         if self._name:
+            # Insert custom RST role
+            formatted_output = ('.. role:: macro(raw)\n' +
+                                '    :format: html\n' +
+                                '    :class: macro\n\n')
             # Define formatted cross-reference using the RST replacement
             # directive.
-            formatted_output = (
+            formatted_output += (
                 '.. |' + self._name + '| replace:: ``\\' + self._name + '``\n'
             )
             # Define cross-reference label
             formatted_output += '.. _' + self._name + ':\n\n'
             # Define header
             formatted_output += (
-                '\\\\' + self._name + '\n'
-                + rst_conf.cs_hdr_symbol*(len(self._name) + 2) + '\n'
+                ':macro:`\\' + self._name + '`\n'
+                + rst_conf.cs_hdr_symbol*(len(self._name) + 10) + '\n'
             )
             # Add description
             formatted_output += self._descr + '\n'
