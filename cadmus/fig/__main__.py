@@ -3,16 +3,16 @@ from .generate import generate
 
 parser = argparse.ArgumentParser(description='Cadmus figure generator.')
 
-parser.add_argument('--source-dir',
-                    help='Specify the source directory.',
+parser.add_argument('--source-root-dir',
+                    help='Specify the source root directory.',
                     default='.')
 
-parser.add_argument('--build-dir',
-                    help='Specify the output directory.',
+parser.add_argument('--build-root-dir',
+                    help='Specify the build root directory.',
                     required=True)
 
-parser.add_argument('--output-dir',
-                    help='Specify the output directory.',
+parser.add_argument('--output-root-dir',
+                    help='Specify the output root directory.',
                     default=None)
 
 parser.add_argument('--template',
@@ -46,8 +46,9 @@ args = parser.parse_args()
 
 # If the output directory is not specified, direct the output to the source
 # directory.
-if not args.output_dir:
-    args.output_dir = args.source_dir
+if not args.output_root_dir:
+    args.output_root_dir = args.source_root_dir
 
-generate(args.source_dir, args.build_dir, args.output_dir, args.template,
-         args.font, args.format, args.dev, args.verbose, args.dry_run)
+generate(args.source_root_dir, args.build_root_dir, args.output_root_dir,
+         args.template, args.font, args.format, args.dev, args.verbose,
+         args.dry_run)

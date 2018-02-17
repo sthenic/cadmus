@@ -36,7 +36,7 @@ def get_template_path(root_dir, template):
 
     return template_path_ret
 
-def generate_source_files(source_dir, output_dir, default_template,
+def generate_source_files(source_root_dir, output_root_dir, default_template,
                           default_font):
     print('Begin generating TeX sources.')
 
@@ -53,9 +53,9 @@ def generate_source_files(source_dir, output_dir, default_template,
         # Replace the variable with the correct path
         default_template = TEMPLATES[default_template]
 
-    if not os.path.exists(output_dir):
-        print('Creating output directory ' + output_dir + '.')
-        os.makedirs(output_dir)
+    if not os.path.exists(output_root_dir):
+        print('Creating output directory ' + output_root_dir + '.')
+        os.makedirs(output_root_dir)
     # else:
         # Clean up build directory (possible to safely?)
 
@@ -67,11 +67,11 @@ def generate_source_files(source_dir, output_dir, default_template,
 
     # The source directory's hierarchical structure is replicated in the output
     # directory, i.e. the source file located at
-    #   <source_dir>/<dir0>/<file0>.tex
+    #   <source_root_dir>/<dir0>/<file0>.tex
     # will have its corresponding filled template document located at
-    #   <output_dir>/<dir0>/<file0>/<file0>.tex
+    #   <output_root_dir>/<dir0>/<file0>/<file0>.tex
     # after the walk is complete.
-    for (root_dir, dir_names, file_names) in os.walk(source_dir):
+    for (root_dir, dir_names, file_names) in os.walk(source_root_dir):
         if CFG_FILE_NAME in file_names:
             try:
                 with open(os.path.join(root_dir, CFG_FILE_NAME)) as cfg_file:
@@ -136,12 +136,12 @@ def generate_source_files(source_dir, output_dir, default_template,
                     continue
 
         # Replicate hierarchical structure in the output directory
-        local_output_dir = root_dir.split(source_dir)[1]
+        local_output_dir = root_dir.split(source_root_dir)[1]
         if os.name == 'nt':
             local_output_dir = local_output_dir.strip('\\')
         else:
             local_output_dir = local_output_dir.strip('/')
-        local_output_dir = os.path.join(output_dir, local_output_dir)
+        local_output_dir = os.path.join(output_root_dir, local_output_dir)
 
         if not os.path.exists(local_output_dir):
             print('Creating directory ' + local_output_dir + '.')

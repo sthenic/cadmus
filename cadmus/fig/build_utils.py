@@ -159,13 +159,14 @@ def rasterize(file, output_dir, output_format, dev, verbose):
 
     return p_convert.returncode
 
-def generate_figures(source_dir, output_dir, output_format, dev, verbose):
+def generate_figures(source_root_dir, output_root_dir, output_format, dev,
+                     verbose):
     print('Begin generating figures.')
-    if not os.path.exists(output_dir):
-        print('Creating directory ' + output_dir + '.')
-        os.makedirs(output_dir)
+    if not os.path.exists(output_root_dir):
+        print('Creating directory ' + output_root_dir + '.')
+        os.makedirs(output_root_dir)
 
-    for (root_dir, dir_names, file_names) in os.walk(source_dir):
+    for (root_dir, dir_names, file_names) in os.walk(source_root_dir):
         if CFG_FILE_NAME in file_names:
             try:
                 with open(os.path.join(root_dir, CFG_FILE_NAME)) as cfg_file:
@@ -191,7 +192,7 @@ def generate_figures(source_dir, output_dir, output_format, dev, verbose):
             continue
 
         # Replicate hierarchical structure in the output directory
-        local_output_dir = root_dir.split(source_dir)[1]
+        local_output_dir = root_dir.split(source_root_dir)[1]
         if os.name == 'nt':
             local_output_dir = local_output_dir.strip('\\')
         else:
@@ -200,7 +201,7 @@ def generate_figures(source_dir, output_dir, output_format, dev, verbose):
         # TODO: What happens if empty?
         local_output_dir = os.path.dirname(local_output_dir)
         # Join the reduced source path to the output directory
-        local_output_dir = os.path.join(output_dir, local_output_dir)
+        local_output_dir = os.path.join(output_root_dir, local_output_dir)
         # Create if directory if it doesn't exist
         if not os.path.exists(local_output_dir):
             print('Creating output directory ' + local_output_dir + '.')
