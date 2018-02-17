@@ -3,18 +3,23 @@ from .generate import generate
 
 parser = argparse.ArgumentParser(description='Cadmus documentation generator.')
 
-parser.add_argument('--source-dir',
-                    help='Specify the source directory.',
+parser.add_argument('--source-root-dir',
+                    help='Specify the source root directory.',
                     default='.')
+
+parser.add_argument('--output-root-dir',
+                    help='Specify the output root directory.',
+                    required=True)
+
+parser.add_argument('--output-dirs-from-filenames',
+                    help='',
+                    action='store_true')
 
 parser.add_argument('--output-dir',
                     help='Specify the output directory.',
-                    required=True)
-
-parser.add_argument('--sub-dir',
-                    help='Specify the subdirectory.',
                     default='ref')
 
 args = parser.parse_args()
 
-generate(args.source_dir, args.output_dir, args.sub_dir)
+generate(args.source_root_dir, args.output_root_dir, args.output_dir,
+         args.output_dirs_from_filenames)
