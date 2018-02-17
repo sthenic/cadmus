@@ -12,7 +12,8 @@ parser.add_argument('--output-root-dir',
                     required=True)
 
 parser.add_argument('--output-dirs-from-filenames',
-                    help='',
+                    help='Prepend the filename to the path specified by '
+                         '--output-dir.',
                     action='store_true')
 
 parser.add_argument('--output-dir',
