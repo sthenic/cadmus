@@ -1,9 +1,10 @@
 class DObject:
     def __init__(self, name, descr=''):
-        self._name    = name
-        self._descr   = descr
-        self.has_opts = False
-        self.has_args = False
+        self._name      = name
+        self._descr     = descr
+        self.has_opts   = False
+        self.has_kwargs = False
+        self.has_args   = False
         return
 
     def set_name(self, name):

@@ -38,16 +38,18 @@ def parse_file(file_path):
         IDLE       = 0
         CS_DESCR   = 1
         CS_OPT     = 2
-        CS_ARG     = 3
-        NAME       = 4
-        DOBJ_DONE  = 5
-        CFG_DESCR  = 6
-        CFG_NAME   = 7
-        CFG_DEF    = 8
+        CS_KWARG   = 3
+        CS_ARG     = 4
+        NAME       = 5
+        DOBJ_DONE  = 6
+        CFG_DESCR  = 7
+        CFG_NAME   = 8
+        CFG_DEF    = 9
 
     # Information containers. Different document objects may support a
     # different combination of information containers.
     opts         = []
+    kwargs       = []
     args         = []
     descr        = ''
     cfg_def      = ''
@@ -101,6 +103,20 @@ def parse_file(file_path):
 
                         state = State.CS_OPT
 
+                    elif token == 'kwarg':
+                        # Validate argument
+                        if not match.group(4):
+                            raise ValueError('Missing argument to token {}.'
+                                             .format(token))
+
+                        kwargs.append({'name': match.group(4),
+                                       'descr': match.group(8)})
+
+                        if match.group(5):
+                            kwargs[-1]['default'] = match.group(6)
+
+                        state = State.CS_KWARG
+
                     elif token == 'arg':
                         # Validate argument
                         if not match.group(4):
@@ -138,6 +154,9 @@ def parse_file(file_path):
 
                     elif state == State.CS_OPT:
                         opts[-1]['descr'] += ' ' + line.strip()
+
+                    elif state == State.CS_KWARG:
+                        kwargs[-1]['descr'] += ' ' + line.strip()
 
                     elif state == State.CS_ARG:
                         args[-1]['descr'] += ' ' + line.strip()
@@ -182,7 +201,7 @@ def parse_file(file_path):
                                     # for the macro definition is encountered.
                                     continue
 
-                                # Above continue block guards against
+                                # The continue block above guards against
                                 # decrementing w/o having found the opening
                                 # brace.
                                 if c == '}':
@@ -250,14 +269,25 @@ def parse_file(file_path):
                                      'type \'{}\'.'
                                      .format(dobject_type))
 
-                # Add options and arguments
+                # Add options, arguments and keyword arguments
                 if dobject.has_opts:
                     for opt in opts:
                         if 'default' in opt:
-                            dobject.add_option(
-                                opt['name'], opt['descr'], opt['default'])
+                            dobject.add_option(opt['name'], opt['descr'],
+                                               opt['default'])
                         else:
                             dobject.add_option(opt['name'], opt['descr'])
+
+                if dobject.has_kwargs:
+                    for kwarg in kwargs:
+                        if 'default' in kwarg:
+                            dobject.add_keyword_argument(kwarg['name'],
+                                                         kwarg['descr'],
+                                                         kwarg['default'])
+                        else:
+                            dobject.add_keyword_argument(kwarg['name'],
+                                                         kwarg['descr'])
+
                 if dobject.has_args:
                     for arg in args:
                         dobject.add_argument(arg['name'], arg['descr'])
@@ -267,6 +297,7 @@ def parse_file(file_path):
 
                 # Reset internal variables
                 opts         = []
+                kwargs       = []
                 args         = []
                 descr        = ''
                 cfg_def      = ''

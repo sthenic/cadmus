@@ -19,6 +19,9 @@ class Macro(ControlSequence):
         if self._opts:
             formatted_output += '[options]'
 
+        if self._kwargs:
+            formatted_output += '{kwargs}'
+
         if self._args:
             for arg in self._args:
                 formatted_output += '{' + arg['name'] + '}'
@@ -55,6 +58,7 @@ class Macro(ControlSequence):
         format_string  = self.format_header()
         format_string += self.format_syntax()
         format_string += self.format_opts()
+        format_string += self.format_keyword_arguments()
         format_string += self.format_args()
 
         return format_string

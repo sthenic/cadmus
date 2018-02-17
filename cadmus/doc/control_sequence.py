@@ -5,14 +5,20 @@ from .formatter import format_table
 class ControlSequence(DObject):
     def __init__(self, name, descr=''):
         DObject.__init__(self, name, descr)
-        self._opts    = []
-        self._args    = []
-        self.has_opts = True
-        self.has_args = True
+        self._opts      = []
+        self._kwargs    = []
+        self._args      = []
+        self.has_opts   = True
+        self.has_kwargs = True
+        self.has_args   = True
         return
 
     def add_option(self, opt, descr, default='N/A'):
         self._opts.append({'name': opt, 'descr': descr, 'default': default})
+        return
+
+    def add_keyword_argument(self, kwarg, descr, default='N/A'):
+        self._kwargs.append({'name': kwarg, 'descr': descr, 'default': default})
         return
 
     def add_argument(self, arg, descr):
@@ -32,6 +38,27 @@ class ControlSequence(DObject):
                 '``' + opt['name'] + '``',
                 opt['descr'],
                 '``' + opt['default'] + '``'
+            ])
+        table_dict = {'header': header, 'body': body}
+        # Get formatted output
+        formatted_output += format_table(table_dict)
+
+        return formatted_output + '\n'
+
+    def format_keyword_arguments(self):
+        if not self._kwargs:
+            return ''
+        # Add header
+        formatted_output = ('Keyword Arguments\n'
+                            + rst_conf.cs_subhdr_symbol*17 + '\n')
+        # Constuct table dict
+        header = ['Keyword', 'Description', 'Default']
+        body   = []
+        for kwarg in self._kwargs:
+            body.append([
+                '``' + kwarg['name'] + '``',
+                kwarg['descr'],
+                '``' + kwarg['default'] + '``'
             ])
         table_dict = {'header': header, 'body': body}
         # Get formatted output
