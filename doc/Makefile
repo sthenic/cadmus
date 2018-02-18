@@ -2,8 +2,9 @@
 #
 
 # You can set these variables from the command line.
+PYTHON        = python3
 SPHINXOPTS    =
-SPHINXBUILD   = sphinx-build
+SPHINXBUILD   = $(PYTHON) -msphinx
 SPHINXPROJ    = Cadmus
 SOURCEDIR     = .
 BUILDDIR      = _build
