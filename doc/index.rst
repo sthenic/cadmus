@@ -17,9 +17,10 @@ The source code may be found in the project's `GitLab repository`_.
 
 .. _Sphinx: http://www.sphinx-doc.org/
 
-Contents
-========
-
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :caption: Contents
+
+   _source/documentation_generation_engine.rst
+   _source/figure_generation_engine.rst
+   _source/sphinx_integration.rst
