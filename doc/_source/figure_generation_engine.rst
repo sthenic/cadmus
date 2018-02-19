@@ -1,4 +1,4 @@
-.. _docgen_engine:
+.. _figgen_engine:
 
 ************************
 Figure Generation Engine

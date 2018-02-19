@@ -1,4 +1,4 @@
-.. _figgen_engine:
+.. _docgen_engine:
 
 *******************************
 Documentation Generation Engine
