@@ -1,26 +1,47 @@
-************************************
-Documentation for the Cadmus project
-************************************
+***********
+Cadmus Docs
+***********
 
 Cadmus is a front-end to the `Sphinx`_ documentation generator. The tool is
-written in Python3 and parses custom docstrings from a TeX file and generates
+written in Python3 and parses custom docstrings from a LaTeX file and generates
 output files using the reStructuredText markdown language. These files may then
 be included into a Sphinx build.
 
 In addition to the documentation generator, the tool has a framework to manage
-automatic figure generation from snippets of TeX code, normally used to
-showcase a particular feature in a TeX package.
+automatic figure generation from snippets of LaTeX code, normally used to
+showcase a particular feature in a LaTeX package.
 
-The source code may be found in the project's `GitLab repository`_.
+.. note::
+
+    The source code may be found in the project's `GitLab repository`_.
 
 .. _GitLab repository: https://gitlab.com/sthenic/cadmus
 
 .. _Sphinx: http://www.sphinx-doc.org/
 
-.. toctree::
-   :maxdepth: 2
-   :caption: Contents
+The documentation is organized into the following sections:
 
-   _source/documentation_generation_engine.rst
-   _source/figure_generation_engine.rst
-   _source/sphinx_integration.rst
+.. toctree::
+    :maxdepth: 1
+    :caption: Documentation Engine
+
+    _source/docgen/documentation_generation_engine.rst
+    _source/docgen/docstring_syntax.rst
+
+.. toctree::
+    :maxdepth: 1
+    :caption: Figure Engine
+
+    _source/figgen/figure_generation_engine.rst
+
+.. toctree::
+    :maxdepth: 1
+    :caption: Python Package
+
+    _source/python/installing.rst
+
+.. toctree::
+    :maxdepth: 1
+    :caption: Sphinx Integration
+
+    _source/sphinx_integration.rst
