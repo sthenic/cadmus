@@ -18,7 +18,7 @@ files. Files containing valid docstrings will generate reStructuredText output
 in various :ref:`formats <docgen_format>`. The complete path of the output
 products may be tweaked by the user (explained shortly) but is always
 constructed from the *output root directory* and the *base path*. The base path
-is a reflection of the path of source file relative to the source root
+is a reflection of the path of the source file relative to the source root
 directory. For example, if
 
 .. code::
@@ -44,14 +44,20 @@ extended to
 
     /path/to/output_root_directory/some_dir/some_subdir/file
 
-Finally, the *output directory* is appended to the path arriving at
+Finally, the *output directory* is appended to the path, yielding
 
 .. code::
 
     /path/to/output_root_directory/some_dir/some_subdir/file/path/to/output_directory
 
-implying that the output directory should be specified as a relative path. If
-the output directory is left unspecified, the default path ``ref/`` is used.
+This implies that the output directory should be specified as a relative path.
+If the output directory is left unspecified, the default path ``ref/`` is used.
+
+.. important::
+
+    It is important that the output products are kept in their own directory
+    since the generator overwrites any existing files by the same name. Use
+    caution to not invoke the tool in such a way that causes data loss.
 
 Example Structure
 -----------------
