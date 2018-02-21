@@ -1,6 +1,6 @@
-.. _figgen_engine:
+.. _figgen:
 
-************************
-Figure Generation Engine
-************************
+*****************
+Figure Generation
+*****************
 

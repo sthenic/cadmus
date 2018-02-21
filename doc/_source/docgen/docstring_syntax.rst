@@ -5,9 +5,11 @@ Docstring Syntax
 ****************
 
 A line in the document source code that begins with ``%!`` gets picked up by the
-:ref:`documentation generation engine <docgen_engine>`. This token may be
-followed by the decorators listed in the table below, or raw text. The same
-reStrucuturedText syntax supported by Sphinx is also supported by Cadmus.
+:ref:`documentation generation engine <docgen>`. This token may be followed by
+the decorators listed in the table below, or raw text. The same
+`reStructuredText`_ syntax supported by Sphinx is also supported by Cadmus.
+
+ .. _reStructuredText: http://www.sphinx-doc.org/en/stable/rest.html
 
 .. |docstring_descr| replace:: ``@descr``
 .. |docstring_opt| replace:: ``@opt``
