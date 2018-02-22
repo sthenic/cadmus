@@ -59,8 +59,8 @@ If the output directory is left unspecified, the default path ``ref/`` is used.
     since the generator overwrites any existing files by the same name. Use
     caution to not invoke the tool in such a way that causes data loss.
 
-Example Structure
------------------
+An Example Structure
+--------------------
 
 To attempt to motivate why the path is constructed this way, let us look at an
 example of how to organize the reStructuredText documentation for an example
@@ -138,16 +138,97 @@ our documentation.
 Output Format
 =============
 
+Given a file ``file.sty`` with macros ``\macroa`` and ``\macrob``, environment
+``enva`` and configurable elements ``\cfga`` and ``\cfgb``, the following output
+products will be created:
+
++------------------+---------------------------------------------------+
+| File             | Description                                       |
++==================+===================================================+
+| ``macroa.rst``   | RST markup of ``\macroa``                         |
++------------------+---------------------------------------------------+
+| ``macrob.rst``   | RST markup of ``\macrob``                         |
++------------------+---------------------------------------------------+
+| ``env.rst``      | RST markup of environment ``env``                 |
++------------------+---------------------------------------------------+
+| ``file_cfg.rst`` | RST markup of configurable elements ``\cfga`` and |
+|                  | ``\cfgb``                                         |
++------------------+---------------------------------------------------+
+| ``file_all.rst`` | RST markup of every macro and environment in      |
+|                  | their order of appearance in ``file.sty``         |
++------------------+---------------------------------------------------+
+
+.. _docgen_format_macro:
+
+Macro
+-----
+
+The reStructuredText markup of a macro begins with a transition marker (a
+horizontal line) and is followed by the macro name as a section title.
+
+.. note::
+
+    The section title character may be specified with the option
+    ``--rst-cs-title-char`` and applies to both macros and environments.
+
+The macro name (without ``\``) is used as a label for the section, allowing
+Sphinx cross-references as ``:ref:`amacro```. The markup also defines
+``|amacro|_`` which utilizes the `replacement directive`_ to insert a formatted
+reference to the macro. Unfortunately, due to how Sphinx implements cross-
+references, this is only supported locally inside an ``.rst`` file.
+
+The macro description is followed by the *Syntax* subsection which states the
+macro syntax and forms a legend to help interpreting the information in the
+upcoming subsections: *Options*, *Keyword Arguments* and *Arguments*. Each
+subsection defines a table listing the options, keyword arguments and arguments,
+respectively. If no options/keyword arguments/arguments are specified for the
+macro, the corresponding subsection will not be included in the markup file.
+
+.. note::
+
+    The subsection title character may be specified with the option
+    ``--rst-cs-subtitle-char`` and applies to both macros and environments.
+
+.. _replacement directive:
+    http://docutils.sourceforge.net/docs/ref/rst/directives.html#replacement-text
+
+
+.. _docgen_format_env:
+
+Environment
+-----------
+
+The reStructuredText markup of a macro begins with a transition marker (a
+horizontal line). The section title is created by appending the environment name
+to the word *Environment*.
+
+The name of the environment with the suffix ``_env`` is used as a label for the
+section, allowing Sphinx cross-references as ``:ref:`env_env```, to use the
+example from earlier. As for macros, the markup also defines ``|env_env|_``
+which inserts a formatted link to the environment section with the replacement
+text '``env`` environment'.
+
+The *Syntax* subsection is followed by the *Options*, *Keyword Arguments* and
+*Arguments* subsections, provided they have contents to list.
+
+.. _docgen_format_cfg:
+
+Configurable Elements
+---------------------
+
+The reStructuredText markup of the configurable elements of a package consists
+of one single table listing the elements, their descriptions and default values.
+
 
 Invoking the Engine
 ===================
 
-The documentation generator may be invoked from the command line with
+After :ref:`installing <python_installing>` the Python package, the
+documentation generator may be invoked from the command line with
 
 .. code-block:: bash
 
     $ python -mcadmus.doc --help
 
-after :ref:`installing <python_installing>` the Python package. The command
-above should be used to get the most up-to-date information on the command-line
-options.
+This command above should be used to get the most up-to-date information on the
+command-line options.

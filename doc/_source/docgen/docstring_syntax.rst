@@ -15,18 +15,21 @@ the decorators listed in the table below, or raw text. The same
 .. |docstring_opt| replace:: ``@opt``
 .. |docstring_kwarg| replace:: ``@kwarg``
 .. |docstring_arg| replace:: ``@arg``
+.. |docstring_cfg| replace:: ``@cfg``
 
-+--------------------+---------------------+
-| Decorator          | Description         |
-+====================+=====================+
-| |docstring_descr|_ | Description text    |
-+--------------------+---------------------+
-| |docstring_opt|_   | Option              |
-+--------------------+---------------------+
-| |docstring_kwarg|_ | Keyword argument    |
-+--------------------+---------------------+
-| |docstring_arg|_   | Argument            |
-+--------------------+---------------------+
++--------------------+----------------------+
+| Decorator          | Description          |
++====================+======================+
+| |docstring_descr|_ | Description text     |
++--------------------+----------------------+
+| |docstring_opt|_   | Option               |
++--------------------+----------------------+
+| |docstring_kwarg|_ | Keyword argument     |
++--------------------+----------------------+
+| |docstring_arg|_   | Argument             |
++--------------------+----------------------+
+| |docstring_cfg|_   | Configurable element |
++--------------------+----------------------+
 
 Following a decorator, every marked line is concatenated to form the complete
 description text. The operation terminates when one of the following conditions
@@ -36,9 +39,11 @@ are met:
 * a macro or environment is defined.
 
 If the file ends before either one of these conditions are be met, the content
-is discarded. The information gathered from the docstrings is attributed to the
-next LaTeX macro or environment definition, ``\newcommand`` or
-``\newenvironment``. The code block below demonstrates marking up a macro.
+is discarded.
+
+The information gathered from the docstrings is attributed to the next LaTeX
+macro or environment definition, ``\newcommand`` or ``\newenvironment``. The
+code block below demonstrates marking up a macro.
 
 .. code-block:: LaTeX
 
@@ -133,5 +138,17 @@ not have default values.
 
     %! @arg name Please enter your name here
 
+.. _docstring_cfg:
+
+Configurable Elements
+=====================
+
+A configurable element is documented with the ``@cfg`` decorator. The default
+value is read from the control sequence definition.
+
+.. code-block:: LaTeX
+
+    %! @cfg Specify the text formatting applied to important words
+    \newcommand{\textformatting}{\textbf}
 
 
