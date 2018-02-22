@@ -23,16 +23,16 @@ The documentation is organized into the following sections:
 
 .. toctree::
     :maxdepth: 1
-    :caption: Documentation Engine
+    :caption: Documentation Generation
 
-    _source/docgen/documentation_generation_engine.rst
+    _source/docgen/documentation_generation.rst
     _source/docgen/docstring_syntax.rst
 
 .. toctree::
     :maxdepth: 1
-    :caption: Figure Engine
+    :caption: Figure Generation
 
-    _source/figgen/figure_generation_engine.rst
+    _source/figgen/figure_generation.rst
 
 .. toctree::
     :maxdepth: 1
