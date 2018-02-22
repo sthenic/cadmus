@@ -1,0 +1,34 @@
+@import url("theme.css");
+
+/* Color literals */
+.rst-content code.literal {
+  color: #000000
+}
+
+/* Justify paragraphs */
+.rst-content p {
+   text-align: justify;
+   text-justify: inter-word;
+}
+
+.wy-side-nav-search {
+   background-color: #2980B9;
+}
+
+.wy-side-nav-search input[type=text] {
+   border-color: #343131;
+}
+
+/* override table width restrictions */
+@media screen and (min-width: 767px) {
+
+   .wy-table-responsive table td {
+      /* !important prevents the common CSS stylesheets from overriding
+         this as on RTD they are loaded after this stylesheet */
+      white-space: normal !important;
+   }
+
+   .wy-table-responsive {
+      overflow: visible !important;
+   }
+}
