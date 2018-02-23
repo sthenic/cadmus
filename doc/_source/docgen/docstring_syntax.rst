@@ -143,6 +143,12 @@ not have default values.
 Configurable Elements
 =====================
 
+A *configurable element* is what Cadmus calls a global configuration option
+whose default value may be overriden by the user. An example might be the color
+of certain elements in the package. It is assumed that these elements are
+defined with the ``\newcommand`` macro and that the user should override their
+default value using ``\renewcommand``.
+
 A configurable element is documented with the ``@cfg`` decorator. The default
 value is read from the control sequence definition.
 
