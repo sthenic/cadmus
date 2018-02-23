@@ -12,7 +12,7 @@ using the Python package manager, `pip`_, to install the package.
 
 .. important::
 
-    Cadmus is only compatible with Python3 so make sure you use the correct
+    Cadmus is only compatible with Python 3 so make sure you use the correct
     package manager if you have multiple versions of Python installed on your
     system.
 
@@ -31,7 +31,7 @@ Recipe
 
        $ cd cadmus
 
-3. Install the package using pip for Python3
+3. Install the package using pip for Python 3
 
    .. code-block:: bash
 
