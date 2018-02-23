@@ -1,4 +1,3 @@
-from . import rst_conf
 from .control_sequence import ControlSequence
 from .formatter import format_table
 
@@ -7,9 +6,9 @@ class Macro(ControlSequence):
         ControlSequence.__init__(self, name, descr)
         return
 
-    def format_syntax(self):
+    def format_syntax(self, rst_conf):
         # Add header
-        formatted_output = 'Syntax\n' + rst_conf.cs_subhdr_symbol*6 + '\n'
+        formatted_output = 'Syntax\n' + rst_conf['cs_subsection_char']*6 + '\n'
 
         if not self._name:
             raise ValueError('Macro name is undefined.')
@@ -29,7 +28,7 @@ class Macro(ControlSequence):
         formatted_output += '``\n'
         return formatted_output + '\n'
 
-    def format_header(self):
+    def format_header(self, rst_conf):
         if self._name:
             # Insert custom RST role
             formatted_output = ('.. role:: macro(raw)\n' +
@@ -45,7 +44,7 @@ class Macro(ControlSequence):
             # Define header
             formatted_output += (
                 ':macro:`\\' + self._name + '`\n'
-                + rst_conf.cs_hdr_symbol*(len(self._name) + 10) + '\n'
+                + rst_conf['cs_section_char']*(len(self._name) + 10) + '\n'
             )
             # Add description
             formatted_output += self._descr + '\n'
@@ -54,11 +53,11 @@ class Macro(ControlSequence):
 
         return formatted_output + '\n'
 
-    def format_all(self):
-        format_string  = self.format_header()
-        format_string += self.format_syntax()
-        format_string += self.format_opts()
-        format_string += self.format_keyword_arguments()
-        format_string += self.format_args()
+    def format_all(self, rst_conf):
+        format_string  = self.format_header(rst_conf)
+        format_string += self.format_syntax(rst_conf)
+        format_string += self.format_opts(rst_conf)
+        format_string += self.format_keyword_arguments(rst_conf)
+        format_string += self.format_args(rst_conf)
 
         return format_string

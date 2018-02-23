@@ -32,7 +32,7 @@ class File:
         self._dobjects = parse_file(self._file)
         return
 
-    def generate_rst(self, mask, output_dir='.'):
+    def generate_rst(self, mask, output_dir, rst_conf):
         if not self._file:
             ValueError('File object has no target file.')
 
@@ -56,11 +56,11 @@ class File:
                 # file name.
                 for (midx, macro) in enumerate(self._dobjects['macro']):
                     format_string += '----\n\n'
-                    format_string += macro.format_all()
+                    format_string += macro.format_all(rst_conf)
 
                 for (midx, env) in enumerate(self._dobjects['environment']):
                     format_string += '----\n\n'
-                    format_string += env.format_all()
+                    format_string += env.format_all(rst_conf)
 
                 print('Generating file \'' + package_name + '_all.rst\'.')
                 with open(
@@ -73,7 +73,7 @@ class File:
                 # file name is the macro name.
                 for macro in self._dobjects['macro']:
                     format_string  = '----\n\n'
-                    format_string += macro.format_all()
+                    format_string += macro.format_all(rst_conf)
 
                     print('Generating file \'' + macro._name + '.rst\'.')
                     with open(
@@ -83,7 +83,7 @@ class File:
 
                 for env in self._dobjects['environment']:
                     format_string  = '----\n\n'
-                    format_string += env.format_all()
+                    format_string += env.format_all(rst_conf)
 
                     print('Generating file \'' + env._name + '.rst\'.')
                     with open(
@@ -112,13 +112,13 @@ class File:
                         with open(
                             os.path.join(output_dir, macro._name + '.rst'), 'w'
                         ) as f:
-                            f.write(macro.format_all())
+                            f.write(macro.format_all(rst_conf))
                 for env in self._dobjects['environment']:
                     if re.match(mask, env._name):
                         with open(
                             os.path.join(output_dir, env._name + '.rst'), 'w'
                         ) as f:
-                            f.write(env.format_all())
+                            f.write(env.format_all(rst_conf))
 
         elif isinstance(mask, list):
             # The mask is a list of strings (hopefully)

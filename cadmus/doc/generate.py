@@ -2,7 +2,7 @@ from .file import File
 import os
 
 def generate(source_root_dir, output_root_dir, output_dir,
-             output_dirs_from_filenames):
+             output_dirs_from_filenames, rst_conf):
     print('*** Cadmus documentation generator ***')
     print('Begin generating reStructuredText documents.')
     for (root_dir, dir_names, filenames) in os.walk(source_root_dir):
@@ -35,7 +35,7 @@ def generate(source_root_dir, output_root_dir, output_dir,
             # Create file object
             f = File(os.path.join(root_dir, full_filename))
             # Generate RST reference documentation for defined macros.
-            f.generate_rst('allsplit', local_output_dir)
-            f.generate_rst('all', local_output_dir)
+            f.generate_rst('allsplit', local_output_dir, rst_conf)
+            f.generate_rst('all', local_output_dir, rst_conf)
 
     print('Done generating reStructuredText documents.\n')
