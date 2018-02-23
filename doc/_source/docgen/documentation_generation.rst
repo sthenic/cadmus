@@ -168,8 +168,8 @@ horizontal line) and is followed by the macro name as a section title.
 
 .. note::
 
-    The section title character may be specified with the option
-    ``--rst-cs-title-char`` and applies to both macros and environments.
+    The section title adornment character may be specified with the option
+    ``--rst-cs-section-char`` and applies to both macros and environments.
 
 The macro name (without ``\``) is used as a label for the section, allowing
 Sphinx cross-references as ``:ref:`amacro```. The markup also defines
@@ -186,8 +186,8 @@ macro, the corresponding subsection will not be included in the markup file.
 
 .. note::
 
-    The subsection title character may be specified with the option
-    ``--rst-cs-subtitle-char`` and applies to both macros and environments.
+    The subsection title adornment character may be specified with the option
+    ``--rst-cs-subsection-char`` and applies to both macros and environments.
 
 .. _replacement directive:
     http://docutils.sourceforge.net/docs/ref/rst/directives.html#replacement-text
