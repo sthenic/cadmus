@@ -3,7 +3,7 @@ Cadmus Docs
 ***********
 
 Cadmus is a front-end to the `Sphinx`_ documentation generator. The tool is
-written in Python 3 and parses custom docstrings from a LaTeX file and generates
+written in Python 3 and parses custom docstrings from LaTeX files and generates
 output files using the reStructuredText markdown language. These files may then
 be included into a Sphinx build.
 
