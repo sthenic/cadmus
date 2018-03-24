@@ -119,14 +119,14 @@ our documentation.
         |   |   |_ <macro_1_in_style_file_0.rst>
         |   |   |_ <macro_2_in_style_file_0.rst>
         |   |   |_ <style_file_0_all.rst>
-        |_ style_file_0/
+        |_ style_file_1/
         |   |_ <style_file_1.rst> (static file)
         |   |_ ref/
         |   |   |_ <macro_0_in_style_file_1.rst>
         |   |   |_ <macro_1_in_style_file_1.rst>
         |   |   |_ <environment_0_in_style_file_1.rst>
         |   |   |_ <style_file_1_all.rst>
-        |_ style_file_0/
+        |_ class/
             |_ <class.rst> (static file)
             |_ ref/
                 |_ <macro_0_in_class_all.rst>
