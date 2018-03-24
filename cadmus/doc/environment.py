@@ -15,7 +15,7 @@ class Environment(ControlSequence):
         formatted_output = 'Syntax\n' + rst_conf['cs_subsection_char']*6 + '\n'
 
         if not self._name:
-            raise ValueError('Macro name is undefined.')
+            raise ValueError('Environment name is undefined.')
         else:
             formatted_output += (
                 '.. code-block:: LaTeX\n\n'
@@ -62,7 +62,7 @@ class Environment(ControlSequence):
             # Add description
             formatted_output += self._descr + '\n'
         else:
-            raise ValueError('Macro name is undefined.')
+            raise ValueError('Environment name is undefined.')
 
         return formatted_output + '\n'
 
