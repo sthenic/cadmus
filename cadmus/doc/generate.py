@@ -10,7 +10,8 @@ def generate(source_root_dir, output_root_dir, output_dir,
             (filename, file_type) = full_filename.split('.')
             # Skip unsupported file types
             if (file_type != 'sty') and \
-               (file_type != 'tex'):
+               (file_type != 'tex') and \
+               (file_type != 'cls'):
                 continue
 
             # Replicate hierarchical structure in the output directory
