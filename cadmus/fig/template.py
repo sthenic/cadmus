@@ -112,7 +112,7 @@ class Template:
 
         with open(output_path, 'w') as f:
             print(
-                'Writing file \'' + output_path + '\' using template \'' +
+                'Writing file \'' + output_path + '\'\n\t using template \'' +
                 self.template_ + '\'.')
 
             f.write(''.join(self.file_))
