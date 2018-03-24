@@ -1,15 +1,16 @@
 from .dobject import DObject
 from .formatter import format_table
 
+
 class ControlSequence(DObject):
     def __init__(self, name, descr=''):
         DObject.__init__(self, name, descr)
-        self._opts      = []
-        self._kwargs    = []
-        self._args      = []
-        self.has_opts   = False
+        self._opts = []
+        self._kwargs = []
+        self._args = []
+        self.has_opts = False
         self.has_kwargs = False
-        self.has_args   = False
+        self.has_args = False
         return
 
     def add_option(self, opt, descr, default='N/A'):
@@ -17,7 +18,8 @@ class ControlSequence(DObject):
         return
 
     def add_keyword_argument(self, kwarg, descr, default='N/A'):
-        self._kwargs.append({'name': kwarg, 'descr': descr, 'default': default})
+        self._kwargs.append(
+            {'name': kwarg, 'descr': descr, 'default': default})
         return
 
     def add_argument(self, arg, descr):
@@ -34,7 +36,7 @@ class ControlSequence(DObject):
             'Options\n' + rst_conf['cs_subsection_char']*7 + '\n'
         # Constuct table dict
         header = ['Option', 'Description', 'Default']
-        body   = []
+        body = []
         for opt in self._opts:
             body.append([
                 '``' + opt['name'] + '``',
@@ -57,7 +59,7 @@ class ControlSequence(DObject):
             'Keyword Arguments\n' + rst_conf['cs_subsection_char']*17 + '\n'
         # Constuct table dict
         header = ['Keyword', 'Description', 'Default']
-        body   = []
+        body = []
         for kwarg in self._kwargs:
             body.append([
                 '``' + kwarg['name'] + '``',
@@ -80,7 +82,7 @@ class ControlSequence(DObject):
             'Arguments\n' + rst_conf['cs_subsection_char']*9 + '\n'
         # Constuct table dict
         header = ['Argument', 'Description']
-        body   = []
+        body = []
         for arg in self._args:
             body.append([
                 '``' + arg['name'] + '``',

@@ -4,6 +4,7 @@ from subprocess import Popen, DEVNULL
 
 from .common import CFG_FILE_NAME
 
+
 def generate_pdf(file, output_dir, page, passes, crop, crop_margins, verbose):
     # Check if file exists
     if not os.path.exists(file):
@@ -43,7 +44,7 @@ def generate_pdf(file, output_dir, page, passes, crop, crop_margins, verbose):
             ['pdfcrop',
              '--margins', crop_margins,
              file_name + '.pdf', file_name + '.pdf'],
-            cwd = os.path.abspath(output_dir),
+            cwd=os.path.abspath(output_dir),
             stdout=ostream,
             stderr=ostream
         )
@@ -59,7 +60,7 @@ def generate_pdf(file, output_dir, page, passes, crop, crop_margins, verbose):
          '-dSAFER',
          '-o', file_name + '_%d.pdf',
          file_name + '.pdf'],
-        cwd = os.path.abspath(output_dir),
+        cwd=os.path.abspath(output_dir),
         stdout=ostream,
         stderr=ostream
     )
@@ -84,6 +85,7 @@ def generate_pdf(file, output_dir, page, passes, crop, crop_margins, verbose):
     os.replace(source_path, destination_path)
 
     return p_gs.returncode
+
 
 def rasterize(file, output_dir, output_format, dev, verbose):
     # Check if file exists
@@ -143,7 +145,8 @@ def rasterize(file, output_dir, output_format, dev, verbose):
             # Draw a thin border around the image.
             '-bordercolor', 'gray',
             '-border', '1',
-            '-density', density, # Supersampling instead to preserve color space?
+            # Supersampling instead to preserve color space?
+            '-density', density,
             '-resize', '1000x',
             '-flatten',
             file_name + '.pdf',
@@ -151,13 +154,14 @@ def rasterize(file, output_dir, output_format, dev, verbose):
                 os.path.join(output_dir, file_name + '.' + output_format)
             )
         ],
-        cwd = os.path.abspath(input_dir),
+        cwd=os.path.abspath(input_dir),
         stdout=ostream,
         stderr=ostream
     )
     p_convert.wait()
 
     return p_convert.returncode
+
 
 def generate_figures(source_root_dir, output_root_dir, output_format, dev,
                      verbose):
@@ -172,13 +176,14 @@ def generate_figures(source_root_dir, output_root_dir, output_format, dev,
                 with open(os.path.join(root_dir, CFG_FILE_NAME)) as cfg_file:
                     try:
                         cfg = json.load(cfg_file)
-                    except ValueError: # Changed from value error in Python 3.5
+                    except ValueError:
+                        # Changed from value error in Python 3.5
                         print('WARNING: Could not parse configuration file, '
                               'skipping directory.')
                         continue
             except OSError:
-                print('WARNING: Failed to open configuration file for reading, '
-                      'skipping directory.')
+                print('WARNING: Failed to open configuration file for '
+                      'reading, skipping directory.')
                 continue
         else:
             # Continue walking until a directory with a configuration file is
@@ -214,7 +219,7 @@ def generate_figures(source_root_dir, output_root_dir, output_format, dev,
                     if (
                         'file_name' in t.keys() and
                         t['file_name'] == full_file_name
-                    )
+                )
                 ),
                 None
             )

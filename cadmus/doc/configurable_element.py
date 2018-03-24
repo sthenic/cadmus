@@ -1,5 +1,6 @@
 from .dobject import DObject
 
+
 class ConfigurableElement(DObject):
     def __init__(self, name, descr='', definition=''):
         DObject.__init__(self, name, descr)

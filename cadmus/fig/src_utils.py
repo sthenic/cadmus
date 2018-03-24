@@ -4,14 +4,17 @@ import json
 from .template import Template
 from .common import CFG_FILE_NAME
 
+
 class CadmusPathError(Exception):
     def __init__(self, message=''):
         super(CadmusPathError, self).__init__(message)
         return
 
+
 TEMPLATES = {
     'article': 'templates/article.tex'
 }
+
 
 def get_template_path(root_dir, template):
     template_path_ret = ''
@@ -36,11 +39,11 @@ def get_template_path(root_dir, template):
 
     return template_path_ret
 
+
 def generate_source_files(source_root_dir, output_root_dir, default_template,
                           default_font):
     print('Begin generating TeX sources.')
 
-    # TODO: Test if some abspath stuff is needed after refactoring with argparse
     # Check if the template is given by name
     if default_template not in TEMPLATES:
         # Assuming it's a path, check if the file exists
@@ -77,13 +80,14 @@ def generate_source_files(source_root_dir, output_root_dir, default_template,
                 with open(os.path.join(root_dir, CFG_FILE_NAME)) as cfg_file:
                     try:
                         cfg = json.load(cfg_file)
-                    except ValueError: # Changed from value error in Python 3.5
+                    except ValueError:
+                        # Changed from value error in Python 3.5
                         print('WARNING: Could not parse configuration file, '
                               'skipping directory.')
                         continue
             except OSError:
-                print('WARNING: Failed to open configuration file for reading, '
-                      'skipping directory.')
+                print('WARNING: Failed to open configuration file for '
+                      'reading, skipping directory.')
                 continue
         else:
             # Continue walking until a directory with a configuration file is
@@ -156,7 +160,7 @@ def generate_source_files(source_root_dir, output_root_dir, default_template,
                     if (
                         'file_name' in t.keys() and
                         t['file_name'] == full_file_name
-                    )
+                )
                 ),
                 None
             )

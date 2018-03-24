@@ -1,6 +1,7 @@
 from .file import File
 import os
 
+
 def generate(source_root_dir, output_root_dir, output_dir,
              output_dirs_from_filenames, rst_conf):
     print('*** Cadmus documentation generator ***')

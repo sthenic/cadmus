@@ -13,10 +13,11 @@ import re
 # parser states.
 
 regex = {
-    'newcommand'     : '\s*\\\\newcommand\s*(.*)$',
-    'newenvironment' : '\s*\\\\newenvironment\s*(.*)$',
-    'providesclass'  : '\s*\\\\ProvidesClass\s*(.*)$'
+    'newcommand': '\s*\\\\newcommand\s*(.*)$',
+    'newenvironment': '\s*\\\\newenvironment\s*(.*)$',
+    'providesclass': '\s*\\\\ProvidesClass\s*(.*)$'
 }
+
 
 def parse_file(file_path):
     """This function parses the target file and combines the docstrings with
@@ -30,36 +31,36 @@ def parse_file(file_path):
     """
     # Local document object dict
     dobjects = {
-        'macro'                : [],
-        'environment'          : [],
-        'configurable_element' : [],
-        'document_class'       : []
+        'macro': [],
+        'environment': [],
+        'configurable_element': [],
+        'document_class': []
     }
 
     # Parser states as an enum
     class State(Enum):
-        IDLE       = 0
-        CS_DESCR   = 1
-        CS_OPT     = 2
-        CS_KWARG   = 3
-        CS_ARG     = 4
-        NAME       = 5
-        DOBJ_DONE  = 6
-        CFG_DESCR  = 7
-        CFG_NAME   = 8
-        CFG_DEF    = 9
+        IDLE = 0
+        CS_DESCR = 1
+        CS_OPT = 2
+        CS_KWARG = 3
+        CS_ARG = 4
+        NAME = 5
+        DOBJ_DONE = 6
+        CFG_DESCR = 7
+        CFG_NAME = 8
+        CFG_DEF = 9
 
     # Information containers. Different document objects may support a
     # different combination of information containers.
-    opts         = []
-    kwargs       = []
-    args         = []
-    descr        = ''
-    cfg_def      = ''
-    name         = ''
-    state        = State.IDLE
+    opts = []
+    kwargs = []
+    args = []
+    descr = ''
+    cfg_def = ''
+    name = ''
+    state = State.IDLE
     dobject_type = ''
-    is_valid     = False
+    is_valid = False
 
     # Validate file
     if not os.path.exists(file_path):
@@ -90,7 +91,7 @@ def parse_file(file_path):
                             descr = match.group(4)
                         if match.group(8):
                             descr += ' ' + match.group(8) + '\n'
-                        state      = State.CS_DESCR
+                        state = State.CS_DESCR
 
                     elif token == 'opt':
                         # Validate argument
@@ -174,7 +175,7 @@ def parse_file(file_path):
                 match = re.search('([A-Za-z]+)', line)
                 if match:
                     # Macro name found
-                    name  = match.group(1)
+                    name = match.group(1)
                     state = State.DOBJ_DONE
 
             else:
@@ -192,7 +193,7 @@ def parse_file(file_path):
                         # i.e. the most recent @-token was @cfg.
                         if state == State.CFG_DESCR:
                             dobject_type = 'configurable_element'
-                            brace_ctr    = 0
+                            brace_ctr = 0
                             for c in match.group(2):
                                 if c == '{':
                                     brace_ctr += 1
@@ -214,7 +215,7 @@ def parse_file(file_path):
                                     # Definition complete, don't include this
                                     # character.
                                     state = State.DOBJ_DONE
-                                    break;
+                                    break
 
                                 # Append the character
                                 cfg_def += c
@@ -244,9 +245,9 @@ def parse_file(file_path):
                     if match:
                         # Environment name found on the same line as
                         # \newenvironment
-                        name         = match.group(1)
+                        name = match.group(1)
                         dobject_type = 'environment'
-                        state        = State.DOBJ_DONE
+                        state = State.DOBJ_DONE
                     else:
                         # Environment name still to come
                         dobject_type = 'environment'
@@ -259,14 +260,13 @@ def parse_file(file_path):
                     if match:
                         # Environment name found on the same line as
                         # \ProvidesClass
-                        name         = match.group(1)
+                        name = match.group(1)
                         dobject_type = 'document_class'
-                        state        = State.DOBJ_DONE
+                        state = State.DOBJ_DONE
                     else:
                         # Document class name still to come
                         dobject_type = 'document_class'
                         state = State.NAME
-
 
             if state == State.DOBJ_DONE:
                 # Command sequence definition is complete. If the CS is valid,
@@ -317,14 +317,14 @@ def parse_file(file_path):
                 dobjects[dobject_type].append(dobject)
 
                 # Reset internal variables
-                opts         = []
-                kwargs       = []
-                args         = []
-                descr        = ''
-                cfg_def      = ''
-                name         = ''
-                state        = State.IDLE
+                opts = []
+                kwargs = []
+                args = []
+                descr = ''
+                cfg_def = ''
+                name = ''
+                state = State.IDLE
                 dobject_type = ''
-                is_valid     = False
+                is_valid = False
 
     return dobjects

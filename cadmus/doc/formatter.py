@@ -2,6 +2,8 @@
 #   This module implements formatting functions for reStructuredText elements
 
 # RST table header divider
+
+
 def table_hdivider(col_sizes):
     retstr = ''
     for size in col_sizes:
@@ -10,6 +12,8 @@ def table_hdivider(col_sizes):
     return retstr
 
 # RST table divider
+
+
 def table_divider(col_sizes):
     retstr = ''
     for size in col_sizes:
@@ -18,6 +22,8 @@ def table_divider(col_sizes):
     return retstr
 
 # RST table row
+
+
 def table_row(row, col_sizes):
     retstr = ''
     for i in range(len(row)):
@@ -26,6 +32,8 @@ def table_row(row, col_sizes):
     return retstr
 
 # Returns a formatted RST table given a valid table dict
+
+
 def format_table(table_dict):
     if 'header' in table_dict:
         header = table_dict['header']

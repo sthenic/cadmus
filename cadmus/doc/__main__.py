@@ -34,9 +34,9 @@ args = parser.parse_args()
 
 # Construct RST configuration dict
 rst_conf = {
-    'cs_section_char'    : args.rst_cs_section_char,
-    'cs_subsection_char' : args.rst_cs_subsection_char,
-    'cs_tab_size'        : 4
+    'cs_section_char': args.rst_cs_section_char,
+    'cs_subsection_char': args.rst_cs_subsection_char,
+    'cs_tab_size': 4
 }
 
 generate(args.source_root_dir, args.output_root_dir, args.output_dir,

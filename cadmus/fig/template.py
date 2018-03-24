@@ -1,16 +1,17 @@
 import os
 import re
 
+
 class Template:
     # Locals
     template_ = None
-    file_     = None # Every element is a line in the file
-    markers_  = None # A dict of line indices, i.e. where to place certain
-                     # types of content. Updated when content is added.
+    file_ = None  # Every element is a line in the file
+    markers_ = None  # A dict of line indices, i.e. where to place certain
+    # types of content. Updated when content is added.
 
     # Constructor
     def __init__(self, template):
-        self.file_    = []
+        self.file_ = []
         self.markers_ = {}
         self.parse_template(template)
         return
@@ -20,16 +21,16 @@ class Template:
         if not os.path.exists(template):
             raise ValueError('Invalid template specified: ' + template + '.')
 
-        self.template_  = template
+        self.template_ = template
 
         files_to_insert = []
-        file_id         = 0
+        file_id = 0
 
         # TODO: Check for OSError?
         with open(template) as f:
             for line in f:
                 # Strip the line of leading whitespace
-                line = line.lstrip() # TODO: Why error?!
+                line = line.lstrip()  # TODO: Why error?!
                 if line.startswith('%!'):
                     # Line with special comment, find the token.
                     line = line.strip('%!')
@@ -111,8 +112,8 @@ class Template:
 
         with open(output_path, 'w') as f:
             print(
-                'Writing file \'' + output_path + '\' using template \'' + \
-                 self.template_ + '\'.')
+                'Writing file \'' + output_path + '\' using template \'' +
+                self.template_ + '\'.')
 
             f.write(''.join(self.file_))
 

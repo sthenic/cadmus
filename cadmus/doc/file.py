@@ -4,18 +4,19 @@ from . import rst_conf
 from .ltxparser import parse_file
 from .formatter import format_table
 
+
 class File:
     # Locals
-    _file     = ''
+    _file = ''
     _dobjects = None
 
     # Constructor
     def __init__(self, file=''):
         self._dobjects = {
-            'macro'                : [],
-            'environment'          : [],
-            'configurable_element' : [],
-            'document_class'       : []
+            'macro': [],
+            'environment': [],
+            'configurable_element': [],
+            'document_class': []
         }
         self.set_file(file)
         return
@@ -40,7 +41,7 @@ class File:
         format_string = ''
         # Validate output_dir
         if not os.path.exists(output_dir):
-            print('Creating output directory \'' + output_dir + \
+            print('Creating output directory \'' + output_dir +
                   '\' since it does not exist.')
             os.makedirs(output_dir)
 
@@ -73,7 +74,7 @@ class File:
                 # each macro should be placed in a different file. The output
                 # file name is the macro name.
                 for macro in self._dobjects['macro']:
-                    format_string  = '----\n\n'
+                    format_string = '----\n\n'
                     format_string += macro.format_all(rst_conf)
 
                     print('Generating file \'' + macro._name + '.rst\'.')
@@ -83,7 +84,7 @@ class File:
                         f.write(format_string)
 
                 for env in self._dobjects['environment']:
-                    format_string  = '----\n\n'
+                    format_string = '----\n\n'
                     format_string += env.format_all(rst_conf)
 
                     print('Generating file \'' + env._name + '.rst\'.')
@@ -94,19 +95,20 @@ class File:
 
                 if self._dobjects['configurable_element']:
                     header = ['Style element', 'Description', 'Default value']
-                    body   = []
+                    body = []
                     for e in self._dobjects['configurable_element']:
                         body.append(e.format_table_row())
                     table_dict = {'header': header, 'body': body}
 
                     print('Generating file \'' + package_name + '_cfg.rst\'.')
                     with open(
-                        os.path.join(output_dir, package_name + '_cfg.rst'), 'w'
+                        os.path.join(output_dir, package_name +
+                                     '_cfg.rst'), 'w'
                     ) as f:
                         f.write(format_table(table_dict))
 
                 for dc in self._dobjects['document_class']:
-                    format_string  = '----\n\n'
+                    format_string = '----\n\n'
                     format_string += dc.format_opts(rst_conf)
 
                     print('Generating file \'' + dc._name + '_opts.rst\'.')

@@ -1,13 +1,14 @@
 from .control_sequence import ControlSequence
 from .formatter import format_table
 
+
 class Macro(ControlSequence):
     def __init__(self, name, descr=''):
         ControlSequence.__init__(self, name, descr)
         # A macro may have options, keyword arguments and arguments.
-        self.has_opts   = True
+        self.has_opts = True
         self.has_kwargs = True
-        self.has_args   = True
+        self.has_args = True
         return
 
     def format_syntax(self, rst_conf):
@@ -58,7 +59,7 @@ class Macro(ControlSequence):
         return formatted_output + '\n'
 
     def format_all(self, rst_conf):
-        format_string  = self.format_header(rst_conf)
+        format_string = self.format_header(rst_conf)
         format_string += self.format_syntax(rst_conf)
         format_string += self.format_opts(rst_conf)
         format_string += self.format_keyword_arguments(rst_conf)
