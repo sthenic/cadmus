@@ -5,6 +5,7 @@ from enum import Enum
 from .macro import Macro
 from .environment import Environment
 from .configurable_element import ConfigurableElement
+from .document_class import DocumentClass
 import os
 import re
 
@@ -13,7 +14,8 @@ import re
 
 regex = {
     'newcommand'     : '\s*\\\\newcommand\s*(.*)$',
-    'newenvironment' : '\s*\\\\newenvironment\s*(.*)$'
+    'newenvironment' : '\s*\\\\newenvironment\s*(.*)$',
+    'providesclass'  : '\s*\\\\ProvidesClass\s*(.*)$'
 }
 
 def parse_file(file_path):
@@ -30,7 +32,8 @@ def parse_file(file_path):
     dobjects = {
         'macro'                : [],
         'environment'          : [],
-        'configurable_element' : []
+        'configurable_element' : [],
+        'document_class'       : []
     }
 
     # Parser states as an enum
@@ -249,6 +252,22 @@ def parse_file(file_path):
                         dobject_type = 'environment'
                         state = State.NAME
 
+                # Check the line for a \ProvidesClass token
+                elif re.search(regex['providesclass'], line):
+                    match = re.search(regex['providesclass'], line)
+                    match = re.search('([A-Za-z]+)', match.group(1))
+                    if match:
+                        # Environment name found on the same line as
+                        # \ProvidesClass
+                        name         = match.group(1)
+                        dobject_type = 'document_class'
+                        state        = State.DOBJ_DONE
+                    else:
+                        # Document class name still to come
+                        dobject_type = 'document_class'
+                        state = State.NAME
+
+
             if state == State.DOBJ_DONE:
                 # Command sequence definition is complete. If the CS is valid,
                 # i.e. at least one information token is defined, create
@@ -263,6 +282,8 @@ def parse_file(file_path):
                     dobject = Environment(name, descr)
                 elif dobject_type == 'configurable_element':
                     dobject = ConfigurableElement(name, descr, cfg_def)
+                elif dobject_type == 'document_class':
+                    dobject = DocumentClass(name, descr)
                 else:
                     # Invalid command sequence (should not happen)
                     raise ValueError('Parsing found invalid document object '
