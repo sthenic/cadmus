@@ -7,9 +7,9 @@ class ControlSequence(DObject):
         self._opts      = []
         self._kwargs    = []
         self._args      = []
-        self.has_opts   = True
-        self.has_kwargs = True
-        self.has_args   = True
+        self.has_opts   = False
+        self.has_kwargs = False
+        self.has_args   = False
         return
 
     def add_option(self, opt, descr, default='N/A'):

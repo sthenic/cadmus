@@ -4,6 +4,10 @@ from .formatter import format_table
 class Macro(ControlSequence):
     def __init__(self, name, descr=''):
         ControlSequence.__init__(self, name, descr)
+        # A macro may have options, keyword arguments and arguments.
+        self.has_opts   = True
+        self.has_kwargs = True
+        self.has_args   = True
         return
 
     def format_syntax(self, rst_conf):
