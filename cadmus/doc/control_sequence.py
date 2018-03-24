@@ -27,8 +27,11 @@ class ControlSequence(DObject):
     def format_opts(self, rst_conf):
         if not self._opts:
             return ''
+        # Add label
+        formatted_output = '.. _' + self._name + '_opts:\n\n'
         # Add header
-        formatted_output = 'Options\n' + rst_conf['cs_subsection_char']*7 + '\n'
+        formatted_output += \
+            'Options\n' + rst_conf['cs_subsection_char']*7 + '\n'
         # Constuct table dict
         header = ['Option', 'Description', 'Default']
         body   = []
@@ -47,9 +50,11 @@ class ControlSequence(DObject):
     def format_keyword_arguments(self, rst_conf):
         if not self._kwargs:
             return ''
+        # Add label
+        formatted_output = '.. _' + self._name + '_kwargs:\n\n'
         # Add header
-        formatted_output = ('Keyword Arguments\n'
-                            + rst_conf['cs_subsection_char']*17 + '\n')
+        formatted_output += \
+            'Keyword Arguments\n' + rst_conf['cs_subsection_char']*17 + '\n'
         # Constuct table dict
         header = ['Keyword', 'Description', 'Default']
         body   = []
@@ -68,9 +73,11 @@ class ControlSequence(DObject):
     def format_args(self, rst_conf):
         if not self._args:
             return ''
+        # Add label
+        formatted_output = '.. _' + self._name + '_args:\n\n'
         # Add header
-        formatted_output = ('Arguments\n' + rst_conf['cs_subsection_char']*9
-                            + '\n')
+        formatted_output += \
+            'Arguments\n' + rst_conf['cs_subsection_char']*9 + '\n'
         # Constuct table dict
         header = ['Argument', 'Description']
         body   = []
