@@ -13,8 +13,8 @@ import re
 # parser states.
 
 regex = {
-    'newcommand': '\s*\\\\newcommand\s*(.*)$',
-    'newenvironment': '\s*\\\\newenvironment\s*(.*)$',
+    'control_sequence': '\s*\\\\(newcommand|renewcommand|def)\s*(.*)$',
+    'environment': '\s*\\\\(newenvironment|renewenvironment)\s*(.*)$',
     'providesclass': '\s*\\\\ProvidesClass\s*(.*)$'
 }
 
@@ -181,9 +181,9 @@ def parse_file(file_path):
             else:
                 # Begin ugly and suboptimal regex cascading due to Python...
                 # Check the line for a \newcommand token
-                if re.search(regex['newcommand'], line):
-                    match = re.search(regex['newcommand'], line)
-                    match = re.search('([A-Za-z]+)(.*)', match.group(1))
+                if re.search(regex['control_sequence'], line):
+                    match = re.search(regex['control_sequence'], line)
+                    match = re.search('([A-Za-z]+)(.*)', match.group(2))
                     if match:
                         # Macro name found on the same line as \newcommand
                         name = match.group(1)
@@ -238,10 +238,10 @@ def parse_file(file_path):
                         # Name still to come
                         state = State.NAME
 
-                # Check the line for a \newenvironment token
-                elif re.search(regex['newenvironment'], line):
-                    match = re.search(regex['newenvironment'], line)
-                    match = re.search('([A-Za-z]+)', match.group(1))
+                # Check the line for a tokens defining an environment
+                elif re.search(regex['environment'], line):
+                    match = re.search(regex['environment'], line)
+                    match = re.search('([A-Za-z]+)', match.group(2))
                     if match:
                         # Environment name found on the same line as
                         # \newenvironment
