@@ -108,14 +108,12 @@ class File:
                         f.write(format_table(table_dict))
 
                 for dc in self._dobjects['document_class']:
-                    format_string = '----\n\n'
-                    format_string += dc.format_opts(rst_conf)
-
                     print('Generating file \'' + dc._name + '_opts.rst\'.')
                     with open(
                         os.path.join(output_dir, dc._name + '_opts.rst'), 'w'
                     ) as f:
-                        f.write(format_string)
+                        # Only write option table, without header.
+                        f.write(dc.format_opt_table())
 
             else:
                 # The string is assumed to be a regexp used to match the name
