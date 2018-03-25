@@ -65,10 +65,10 @@ class File:
                     format_string += env.format_all(rst_conf)
 
                 print('Generating file \'' + package_name + '_all.rst\'.')
-                with open(
-                    os.path.join(output_dir, package_name + '_all.rst'), 'w'
-                ) as f:
+                with open(os.path.join(output_dir, package_name + '_all.rst'),
+                          'w') as f:
                     f.write(format_string)
+
             elif (mask == 'allsplit'):
                 # Everything parsed from the target file should be output and
                 # each macro should be placed in a different file. The output
@@ -78,9 +78,8 @@ class File:
                     format_string += macro.format_all(rst_conf)
 
                     print('Generating file \'' + macro._name + '.rst\'.')
-                    with open(
-                        os.path.join(output_dir, macro._name + '.rst'), 'w'
-                    ) as f:
+                    with open(os.path.join(output_dir, macro._name + '.rst'),
+                              'w') as f:
                         f.write(format_string)
 
                 for env in self._dobjects['environment']:
@@ -88,9 +87,8 @@ class File:
                     format_string += env.format_all(rst_conf)
 
                     print('Generating file \'' + env._name + '.rst\'.')
-                    with open(
-                        os.path.join(output_dir, env._name + '.rst'), 'w'
-                    ) as f:
+                    with open(os.path.join(output_dir, env._name + '.rst'),
+                              'w') as f:
                         f.write(format_string)
 
                 if self._dobjects['configurable_element']:
@@ -101,17 +99,15 @@ class File:
                     table_dict = {'header': header, 'body': body}
 
                     print('Generating file \'' + package_name + '_cfg.rst\'.')
-                    with open(
-                        os.path.join(output_dir, package_name +
-                                     '_cfg.rst'), 'w'
-                    ) as f:
+                    with open(os.path.join(output_dir, package_name
+                                                       + '_cfg.rst'),
+                              'w') as f:
                         f.write(format_table(table_dict))
 
                 for dc in self._dobjects['document_class']:
                     print('Generating file \'' + dc._name + '_opts.rst\'.')
-                    with open(
-                        os.path.join(output_dir, dc._name + '_opts.rst'), 'w'
-                    ) as f:
+                    with open(os.path.join(output_dir, dc._name + '_opts.rst'),
+                              'w') as f:
                         # Only write option table, without header.
                         f.write(dc.format_opt_table())
 
@@ -120,15 +116,15 @@ class File:
                 # of one or several macros.
                 for macro in self._dobjects['macro']:
                     if re.match(mask, macro._name):
-                        with open(
-                            os.path.join(output_dir, macro._name + '.rst'), 'w'
-                        ) as f:
+                        with open(os.path.join(output_dir, macro._name
+                                                           + '.rst'),
+                                  'w') as f:
                             f.write(macro.format_all(rst_conf))
+
                 for env in self._dobjects['environment']:
                     if re.match(mask, env._name):
-                        with open(
-                            os.path.join(output_dir, env._name + '.rst'), 'w'
-                        ) as f:
+                        with open(os.path.join(output_dir, env._name + '.rst'),
+                                  'w') as f:
                             f.write(env.format_all(rst_conf))
 
         elif isinstance(mask, list):
