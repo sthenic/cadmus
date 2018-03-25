@@ -64,10 +64,10 @@ code block below demonstrates marking up a macro.
 Descriptions
 ============
 
-Descriptions are initiated with the ``@descr`` decorator. The parsing preserves
-leading whitespace, except for the space character expected after the ``%!``
-token. Any trailing whitespace at the end of a line is trimmed. However, an
-empty line is a special case, which instead inserts the newline character
+*Descriptions* are initiated with the ``@descr`` decorator. The parsing
+preserves leading whitespace, except for the space character expected after the
+``%!`` token. Any trailing whitespace at the end of a line is trimmed. However,
+an empty line is a special case and instead inserts the newline character
 ``\n``.
 
 .. important::
@@ -99,8 +99,8 @@ and demonstrates inserting a newline character.
 Options
 =======
 
-An option is documented with the ``@opt`` decorator. The first word following
-the decorator is taken as the option's name. Any default value enclosed in
+An *option* is documented with the ``@opt`` decorator. The first word following
+the decorator is taken as the option's name. Any default value is enclosed in
 ``::`` and specified immediately after the name.
 
 .. code-block:: LaTeX
@@ -118,7 +118,7 @@ description of the macro or environment.
 Keyword Arguments
 =================
 
-A keyword argument is documented with the ``@kwarg`` decorator. The docstring
+A *keyword argument* is documented with the ``@kwarg`` decorator. The docstring
 parsing behaves exactly like the |docstring_opt|_ decorator.
 
 .. code-block:: LaTeX
@@ -130,7 +130,7 @@ parsing behaves exactly like the |docstring_opt|_ decorator.
 Arguments
 =========
 
-An argument is documented with the ``@arg`` decorator. Every line of text
+An *argument* is documented with the ``@arg`` decorator. Every line of text
 following the first word are used as the argument's description. Arguments may
 not have default values.
 
