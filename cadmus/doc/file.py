@@ -1,7 +1,7 @@
 import os
 import re
 from . import rst_conf
-from .ltxparser import parse_file
+from .latex_parser import parse_file
 from .formatter import format_table
 
 
