@@ -21,12 +21,12 @@ parser.add_argument('--output-dir',
                     default='ref')
 
 parser.add_argument('--rst-cs-section-char',
-                    help='Specify the adornment character used for control'
+                    help='Specify the adornment character used for control '
                          'sequence sections.',
                     default='-')
 
 parser.add_argument('--rst-cs-subsection-char',
-                    help='Specify the adornment character used for control'
+                    help='Specify the adornment character used for control '
                          'sequence subsections.',
                     default='^')
 
